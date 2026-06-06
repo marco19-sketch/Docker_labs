@@ -1,0 +1,23 @@
+# Docker
+docker-compose.override.yml
+*.tar.gz
+*.log
+.secrets/
+.env.docker
+.env.local
+
+# Volumi
+/data/
+/volumes/
+
+# IDE
+.vscode/
+.idea/
+desktop.ini
+.DS_Store
+
+# Linguaggi specifici (scegli il tuo)
+node_modules/
+__pycache__/
+bin/
+obj/
