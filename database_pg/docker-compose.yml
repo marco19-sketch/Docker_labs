@@ -1,0 +1,24 @@
+services:  # top-level key defining sets of containers
+  pg_db:  # service name for the PostgreSQL container
+    image: postgres:latest  # use the latest official Postgres image
+    container_name: pg_database  # explicitly set the container's name
+    restart: unless-stopped  # restart policy, keep running unless manually stopped
+    environment:  # environment variables for the container
+      - POSTGRES_PASSWORD=arces  # default superuser password (insecure for production)
+
+    ports:  # map host port 5432 to container port 5432
+      - "5432:5432"
+    volumes:  # mount volumes for persistent storage
+      - pg_data:/var/lib/postgres  # named volume for database files
+      - ./dumps:/dumps  # bind mount local dumps directory into container
+
+    networks:  # networks the service connects to
+      - pg_network  # attach to custom bridge network
+
+volumes:  # top-level named volumes definition
+  pg_data:  # named volume for Postgres data storage
+    driver: local  # use the local volume driver
+
+networks:  # top-level networks section
+  pg_network:  # custom network for service communication
+    driver: bridge  # use default bridge network driver

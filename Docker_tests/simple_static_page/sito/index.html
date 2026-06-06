@@ -1,0 +1,244 @@
+<!-- cSpell: disable -->
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Docker Cheatsheet</title>
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        line-height: 1.6;
+        background: #f7f7f7;
+        color: #222;
+        padding: 20px;
+      }
+      h1 {
+        text-align: center;
+      }
+      h2 {
+        margin-top: 32px;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 4px;
+      }
+      ul {
+        list-style: none;
+        padding-left: 0;
+      }
+      li {
+        background: #fff;
+        margin: 8px 0;
+        padding: 10px 12px;
+        border-left: 4px solid #4f46e5;
+      }
+      code {
+        background: #eee;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-family: Consolas, monospace;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>🐳 Docker Cheatsheet</h1>
+
+    <h2>🔍 Informazioni e stato di Docker</h2>
+    <ul>
+      <li>
+        <code>docker --version</code> – Mostra la versione del client Docker
+        installato.
+      </li>
+      <li>
+        <code>docker version</code> – Mostra la versione del client e del server
+        Docker.
+      </li>
+      <li>
+        <code>docker info</code> – Fornisce informazioni generali sul sistema
+        Docker.
+      </li>
+    </ul>
+
+    <h2>📦 Container</h2>
+    <ul>
+      <li>
+        <code>docker ps</code> – Elenca i container attualmente in esecuzione.
+      </li>
+      <li>
+        <code>docker ps -a</code> – Elenca tutti i container, inclusi quelli
+        fermi.
+      </li>
+      <li>
+        <code>docker run &lt;image&gt;</code> – Crea ed esegue un nuovo
+        container da un’immagine.
+      </li>
+      <li>
+        <code>docker run -it pippo2 sh</code> – Avvia il container
+        <code>pippo2</code> con shell interattiva.
+      </li>
+      <li>
+        <code>docker run -d --name &lt;nome&gt; &lt;image&gt;</code> – Avvia un
+        container in background con nome.
+      </li>
+      <li>
+        <code>docker start &lt;container&gt;</code> – Avvia un container fermo.
+      </li>
+      <li>
+        <code>docker stop &lt;container&gt;</code> – Arresta un container in
+        esecuzione.
+      </li>
+      <li>
+        <code>docker restart &lt;container&gt;</code> – Riavvia un container.
+      </li>
+      <li><code>docker rm &lt;container&gt;</code> – Elimina un container.</li>
+      <li>
+        <code>docker logs &lt;container&gt;</code> – Mostra i log del container.
+      </li>
+    </ul>
+
+    <h2>🧠 Ispezione e monitoraggio</h2>
+    <ul>
+      <li>
+        <code>docker inspect &lt;container|image&gt;</code> – Mostra i dettagli
+        completi in formato JSON.
+      </li>
+      <li>
+        <code>docker stats</code> – Mostra l’uso delle risorse in tempo reale.
+      </li>
+    </ul>
+
+    <h2>🖥️ Esecuzione comandi nei container</h2>
+    <ul>
+      <li>
+        <code>docker exec -it &lt;container&gt; bash</code> – Apre una shell
+        interattiva nel container.
+      </li>
+      <li>
+        <code>docker exec &lt;container&gt; &lt;comando&gt;</code> – Esegue un
+        comando nel container.
+      </li>
+      <li>
+        <code
+          >docker exec pippo2 sh -c 'echo "Hello" &gt;
+          /data/paragraph.txt'</code
+        >
+        – Scrive un file nel container.
+      </li>
+    </ul>
+
+    <h2>💾 Volumi Docker</h2>
+    <ul>
+      <li><code>docker volume ls</code> – Elenca i volumi Docker.</li>
+      <li>
+        <code>docker volume create &lt;volume&gt;</code> – Crea un nuovo volume.
+      </li>
+      <li>
+        <code>docker volume --help</code> – Mostra l’aiuto per i comandi sui
+        volumi.
+      </li>
+      <li>
+        <code
+          >docker run -v pippo-dati:/data alpine sh -c 'echo "Hello" &gt;
+          /data/hello.txt'</code
+        >
+        – Scrive un file in un volume.
+      </li>
+      <li>
+        <code
+          >docker run --rm -v pippo-dati:/data alpine cat /data/hello.txt</code
+        >
+        – Legge un file da un volume.
+      </li>
+      <li>
+        <code
+          >docker run --rm -v pippo-dati:/data alpine more /data/hello.txt</code
+        >
+        – Visualizza il contenuto di un file.
+      </li>
+      <li>
+        <code>docker run --rm -v pippo-dati:/data alpine ls -l /data</code> –
+        Elenca i file nel volume.
+      </li>
+    </ul>
+
+    <h2>🌐 Network Docker</h2>
+    <ul>
+      <li><code>docker network ls</code> – Elenca le reti Docker.</li>
+      <li>
+        <code>docker network create &lt;network&gt;</code> – Crea una nuova
+        rete.
+      </li>
+      <li>
+        <code>docker network connect &lt;network&gt; &lt;container&gt;</code> –
+        Collega un container a una rete.
+      </li>
+      <li>
+        <code>docker network inspect &lt;network&gt;</code> – Mostra i dettagli
+        di una rete.
+      </li>
+    </ul>
+
+    <h2>🐳 Immagini Docker</h2>
+    <ul>
+      <li><code>docker images</code> – Elenca le immagini locali.</li>
+      <li>
+        <code>docker pull &lt;image&gt;</code> – Scarica un’immagine dal
+        registry.
+      </li>
+      <li>
+        <code>docker build -t &lt;nome&gt;:&lt;tag&gt; .</code> – Crea
+        un’immagine da un Dockerfile.
+      </li>
+      <li>
+        <code>docker rmi &lt;image&gt;</code> – Elimina un’immagine Docker.
+      </li>
+    </ul>
+
+    <h2>🧩 Docker Compose</h2>
+    <ul>
+      <li>
+        <code>docker compose up -d</code> – Avvia i servizi definiti in
+        <code>docker-compose.yml</code>.
+      </li>
+      <li><code>docker compose down</code> – Ferma e rimuove i servizi.</li>
+    </ul>
+
+    <h2>🐝 Docker Swarm e servizi</h2>
+    <ul>
+      <li><code>docker swarm init</code> – Inizializza Docker Swarm.</li>
+      <li><code>docker node ls</code> – Elenca i nodi del cluster.</li>
+      <li>
+        <code
+          >docker service create --name &lt;nome&gt; --replicas N -p
+          host:container &lt;image&gt;</code
+        >
+        – Crea un servizio Swarm.
+      </li>
+      <li>
+        <code>docker service scale &lt;servizio&gt;=N</code> – Modifica il
+        numero di repliche.
+      </li>
+      <li><code>docker service ls</code> – Elenca i servizi Swarm.</li>
+      <li>
+        <code>docker service ps &lt;servizio&gt;</code> – Mostra i task del
+        servizio.
+      </li>
+      <li>
+        <code
+          >docker service update --image &lt;image&gt; &lt;servizio&gt;</code
+        >
+        – Aggiorna l’immagine del servizio.
+      </li>
+      <li>
+        <code>docker service rollback &lt;servizio&gt;</code> – Ripristina la
+        versione precedente.
+      </li>
+      <li>
+        <code>docker service inspect &lt;servizio&gt;</code> – Mostra i dettagli
+        del servizio.
+      </li>
+      <li>
+        <code>docker service rm &lt;servizio&gt;</code> – Rimuove un servizio.
+      </li>
+    </ul>
+  </body>
+</html>
+```
